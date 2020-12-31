@@ -44,6 +44,8 @@ end
 
 -- Get the NumberValue or StringValue or IntValue, etc, instance
 function ClientPlayerData:GetValue(field, no_wait)
+	if field == nil then return nil end
+
 	-- did we already find it?
 	local vv = self.values[field]
 	if vv ~= nil then
@@ -84,6 +86,19 @@ function ClientPlayerData:Get(field, no_wait)
 		return vv.Value
 	end
 	return nil
+end
+
+-- calls self:GetValue(field) and Changed.Connect(func)
+function ClientPlayerData:Attach(field, func)
+	if field ~= nil then
+		local vv = self:GetValue(field)
+		if vv ~= nil then
+			vv.Changed:Connect(func)
+			return true
+		end
+		warn("Failed to Attach", field)
+	end
+	return false
 end
 
 --------------------------------------------------------------------------------
