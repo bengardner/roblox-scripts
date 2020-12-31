@@ -34,7 +34,7 @@ function ClientPlayerData:_check(no_wait)
 		if no_wait == true then
 			self.loaded = self.player:FindFirstChild("PlayerDataLoaded") ~= nil
 		else
-			self.loaded = self.player:WaitForChild("PlayerDataLoaded") ~= nil 
+			self.loaded = self.player:WaitForChild("PlayerDataLoaded") ~= nil
 		end
 	end
 	if self.loaded == true then
@@ -92,13 +92,13 @@ getter.cache = {}
 
 --[[
 It is assumed that if the localscript has access to the player, then the player exists.
-We need to handle a player joining and then exiting before the data is replicated. 
+We need to handle a player joining and then exiting before the data is replicated.
 ]]
 function getter.Get(player, no_wait)
 	local data = getter.cache[player]
 	if data == nil then
 		data = setmetatable({}, ClientPlayerData)
-	
+
 		data.player = player
 		data.values = {}
 
@@ -109,7 +109,7 @@ function getter.Get(player, no_wait)
 end
 
 --[[
-TODO: spawn a loop that scans players every 30 seconds and removes missing players from the cache. 
+TODO: spawn a loop that scans players every 30 seconds and removes missing players from the cache.
 ]]
 
 return getter

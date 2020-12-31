@@ -13,7 +13,7 @@ There are 3 main functions:
 
 	Register_onCharacterAdded(player, onCharacterAdded)
 		Attach the onCharacterAdded() event for one or all characters.
-		If player is nil, this will use Register_onPlayerAdded() to attach the character functions. 
+		If player is nil, this will use Register_onPlayerAdded() to attach the character functions.
 		The onCharacterAdded() function gets both the player and character (might need to revisit that!)
 --]]
 local Players = game:GetService("Players")
@@ -30,14 +30,14 @@ function module.Register_onCharacterAdded(player, onCharacterAdded)
 		end
 	else
 		module.Register_onPlayerAdded(function(new_player)
-			module.Register_onCharacterAdded(new_player, onCharacterAdded) 
+			module.Register_onCharacterAdded(new_player, onCharacterAdded)
 		end)
 	end
 end
 
 function module.Register_onPlayerAdded(onPlayerAdded)
 	Players.PlayerAdded:Connect(onPlayerAdded)
-	
+
 	-- call onPlayerAdded() for players added before this call
 	for _, player in pairs(Players:GetPlayers()) do
 		onPlayerAdded(player)
@@ -46,7 +46,7 @@ end
 
 function module.OnPlayerAdded(onPlayerAdded)
 	Players.PlayerAdded:Connect(onPlayerAdded)
-	
+
 	-- call onPlayerAdded() for players added before this call
 	for _, player in pairs(Players:GetPlayers()) do
 		onPlayerAdded(player)
@@ -60,7 +60,7 @@ function module.Register_Player(onPlayerAdded, onPlayerRemoving)
 	end
 	if onPlayerAdded then
 		module.Register_onPlayerAdded(onPlayerAdded)
-	end	
+	end
 end
 function module.OnPlayer(onPlayerAdded, onPlayerRemoving)
 	if onPlayerRemoving then
@@ -68,7 +68,7 @@ function module.OnPlayer(onPlayerAdded, onPlayerRemoving)
 	end
 	if onPlayerAdded then
 		module.OnPlayerAdded(onPlayerAdded)
-	end	
+	end
 end
 
 -- Register both onPlayerAdded and onPlayerRemoving
@@ -78,7 +78,7 @@ function module.OnPlayerAdded(onPlayerAdded, onPlayerRemoving)
 	end
 	if onPlayerAdded then
 		module.Register_onPlayerAdded(onPlayerAdded)
-	end	
+	end
 end
 
 -- register the OnCharacterAdded for *any* player or just one
@@ -94,9 +94,9 @@ function module.OnCharacterAdded(onCharacterAdded, player)
 		end
 	else
 		module.OnPlayerAdded(function(new_player)
-			module.OnCharacterAdded(onCharacterAdded, new_player) 
+			module.OnCharacterAdded(onCharacterAdded, new_player)
 		end)
-	end	
+	end
 end
 
 -- register the OnCharacterLoaded for *any* player or just one
@@ -112,9 +112,9 @@ function module.OnCharacterLoaded(onCharacterLoaded, player)
 		end
 	else
 		module.OnPlayerAdded(function(new_player)
-			module.OnCharacterLoaded(onCharacterLoaded, new_player) 
+			module.OnCharacterLoaded(onCharacterLoaded, new_player)
 		end)
-	end	
+	end
 end
 
 -- NOTE: this won't work if the player appearance hadn't been loaded

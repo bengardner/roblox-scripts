@@ -17,11 +17,11 @@ function module.AddHandler(name, onAdded, onRemoved)
 		warn("TAG", name, "requires onAdded!")
 		return
 	end
-	
+
 	local info = { name=name, onAdded=onAdded, onRemoved=onRemoved }
 	module.tags[name] = info
-	
-	-- handle existing tags and connect the tag events 
+
+	-- handle existing tags and connect the tag events
 	for _, inst in pairs(CollectionService:GetTagged(name)) do
 		onAdded(inst)
 	end
@@ -32,7 +32,7 @@ function module.AddHandler(name, onAdded, onRemoved)
 		CollectionService:GetInstanceRemovedSignal(name):Connect(function(inst)
 			onRemoved(inst)
 		end)
-	end	
+	end
 end
 
 return module

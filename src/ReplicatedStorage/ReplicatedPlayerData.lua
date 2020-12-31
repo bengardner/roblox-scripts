@@ -49,8 +49,8 @@ The other fields are for datastore use:
 ReplicatedPlayerData.items = {
 	-- stats items
 	coins        = { inst='NumberValue', default=100 },
-	gems         = { inst='NumberValue' },	
-	
+	gems         = { inst='NumberValue' },
+
 	xp           = { inst='NumberValue' },
 	level        = { inst='NumberValue' },
 	rebirths     = { inst='NumberValue' },
@@ -60,12 +60,12 @@ ReplicatedPlayerData.items = {
 	health_max   = { inst='NumberValue' },
 
 	pets         = { inst='Folder',
-		children = {			
-		}		
+		children = {
+		}
 	},
 	items        = { inst='Folder',
 		children = {
-		}		
+		}
 	},
 
 	-- derived data

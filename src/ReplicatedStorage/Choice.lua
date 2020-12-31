@@ -15,18 +15,18 @@ function choice.ChooseOne(opts)
 			total_weight = total_weight + v
 		end
 	end
-	
-	local rv = math.random() * total_weight	
+
+	local rv = math.random() * total_weight
 	for k, v in pairs(opts) do
 		if v > 0 then
 			if rv < v then
 				return k
 			end
-			rv = rv - v	
+			rv = rv - v
 		end
 	end
 	warn("Didn't pick anything")
-	return 
+	return
 end
 
 --[[
@@ -34,8 +34,8 @@ Find a random position within a part, returned as a CFrame
 ]]
 function choice.getRandomCframeInPart(part)
 	return part.CFrame * CFrame.new(
-		choice.rand:NextNumber(-part.Size.X/2,part.Size.X/2), 
-		choice.rand:NextNumber(-part.Size.Y/2,part.Size.Y/2), 
+		choice.rand:NextNumber(-part.Size.X/2,part.Size.X/2),
+		choice.rand:NextNumber(-part.Size.Y/2,part.Size.Y/2),
 		choice.rand:NextNumber(-part.Size.Z/2,part.Size.Z/2)
 	)
 end

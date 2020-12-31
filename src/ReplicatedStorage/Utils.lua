@@ -8,7 +8,7 @@ function module.GetOrCreate(parent, name, typename)
 	if xx == nil then
 		xx = Instance.new(typename)
 		xx.Name = name
-		xx.Parent = parent		
+		xx.Parent = parent
 	end
 	return xx
 end

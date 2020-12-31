@@ -25,7 +25,7 @@ local WaistOriginC0 = Waist.C0
 
 -- Create the LookAtPart, if needed (the server may have created it)
 local LookAtPartValue = char:FindFirstChild("LookAtPart")
-if LookAtPartValue == nil then 
+if LookAtPartValue == nil then
 	LookAtPartValue = Instance.new("ObjectValue")
 	LookAtPartValue.Name = "LookAtPart"
 	LookAtPartValue.Parent = char
@@ -50,15 +50,15 @@ end
  - if it is a Tool:
    + return the part named "Handle", if present
    + return the first BasePart in the model that is not transparent
-   
-This is done when the current target becomes invalid OR LookAtPart.Value changes. 
+
+This is done when the current target becomes invalid OR LookAtPart.Value changes.
 ]]
 local function lookat_resolve(target)
 	if target ~= nil then
 		local xx
 		if target:IsA("BasePart") then
 			xx = target
-			
+
 		elseif target:IsA("Model") then
 			xx = target.PrimaryPart
 			if xx == nil then
@@ -101,14 +101,14 @@ local function lookat_heartbeat(step)
 		if ovv ~= lookat_value then
 			lookat_part = lookat_resolve(ovv)
 			lookat_value = ovv
-		end		
+		end
 
 		local tgt = lookat_part
 		-- don't look if behind player
 		if tgt ~= nil then
 			-- using unit vectors, so the dot is cos(a). 0.3 is about 33 deg behind.
 			local dd = hrp.CFrame.lookVector:Dot((hrp.Position - tgt.Position).Unit)
-			if dd > 0.3 then				
+			if dd > 0.3 then
 				--print('DOT:', dd)
 				tgt = nil
 			end
@@ -116,10 +116,10 @@ local function lookat_heartbeat(step)
 
 		if tgt ~= nil then
 			local TorsoLookVector = Torso.CFrame.lookVector
-			local HeadPosition = Head.CFrame.p		
+			local HeadPosition = Head.CFrame.p
 			local Point = tgt.Position
 			local tgt_vec = HeadPosition - Point
-			local tgt_unit = tgt_vec.Unit 
+			local tgt_unit = tgt_vec.Unit
 
 			local Distance = tgt_vec.magnitude
 			--local YDifference = Head.CFrame.Y - Point.Y
@@ -129,7 +129,7 @@ local function lookat_heartbeat(step)
 
 			Neck.C0 = Neck.C0:lerp(NeckOriginC0 * CFrame.Angles(atd, hpy * 1, 0), 0.25)
 			Waist.C0 = Waist.C0:lerp(WaistOriginC0 * CFrame.Angles(atd, hpy * 0.5, 0), 0.25)
-			
+
 			-- give 2 seconds to go back to normal
 			restore_time = 2
 			--print("LOOKING")
@@ -141,9 +141,9 @@ local function lookat_heartbeat(step)
 		-- not looking at anything, return to normal pose
 		Neck.C0 = Neck.C0:lerp(NeckOriginC0, 0.25)
 		Waist.C0 = Waist.C0:lerp(WaistOriginC0, 0.25)
-		
+
 		if lookat_part == nil then
-			-- lerp to the rest position for a little while then let animations take over		
+			-- lerp to the rest position for a little while then let animations take over
 			restore_time = restore_time - step
 			if restore_time < 0 then
 				if ov_conn ~= nil then
@@ -170,7 +170,7 @@ end
 -- start calling the heartbeat function if we have the required parts
 if Neck and Waist and Torso and Head and LookAtPartValue then
 	Neck.MaxVelocity = 1/3
-	
+
 	LookAtPartValue.Changed:Connect(function()
 		handle_new_target()
 	end)

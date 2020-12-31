@@ -1,6 +1,6 @@
 --[[
  Coins are stored in player.leaderstate.ZEN
- 
+
  The number is put in the label.
 --]]
 local LocalPlayerData = require(game.ReplicatedStorage.LocalPlayerData)
@@ -22,12 +22,12 @@ local function onUpdateValue()
 	target_value = value.Value
 	if current_value == 0 then
 		-- set to 1 less to force an update
-		current_value = target_value - 1 
-	end	
-	slew_rate = (target_value - current_value) * 2  -- 0.5 seconds 
+		current_value = target_value - 1
+	end
+	slew_rate = (target_value - current_value) * 2  -- 0.5 seconds
 end
 
-RunService.Heartbeat:Connect(function(elapsed)	
+RunService.Heartbeat:Connect(function(elapsed)
 	if target_value ~= current_value then
 		if slew_rate > 0 then
 			if current_value < target_value then
@@ -42,7 +42,7 @@ RunService.Heartbeat:Connect(function(elapsed)
 				current_value = target_value
 			end
 		end
-		
+
 		if current_value == target_value then
 			local function bigtweendone()
 				label:TweenSize(
@@ -63,10 +63,10 @@ RunService.Heartbeat:Connect(function(elapsed)
 				bigtweendone                -- a function to call when the tween completes (default: nil)
 			)
 		end
-		
+
 		-- TODO: handle really big numbers: int64 can be a lot of digits
 		label.Text = string.format("%d", current_value)
-	end	
+	end
 end)
 
 -- hook an event hander and kick set the initial value
