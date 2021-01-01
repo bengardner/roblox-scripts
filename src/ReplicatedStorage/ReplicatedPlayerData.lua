@@ -74,6 +74,9 @@ ReplicatedPlayerData.items = {
 	tool_damage  = { inst='NumberValue', save=false },
 	tool_range   = { inst='NumberValue', save=false, default=30 },
 
+	-- set to the Attachment that is the camera. the parent must be a BasePart
+	camera       = { inst='ObjectValue', save=false },
+
 	-- server-only data (example)
 	active_block = { default={} }, -- block that the player is currently mining
 }

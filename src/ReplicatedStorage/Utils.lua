@@ -35,6 +35,9 @@ end
 
 function module.GetMassOfModel(model)
 	local mass = 0
+	if model:IsA('BasePart') then
+		mass = mass + model:GetMass()
+	end
 	for i, v in pairs(model:GetChildren()) do
 		if v:IsA('BasePart') then
 			mass = mass + v:GetMass()

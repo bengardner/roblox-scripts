@@ -18,7 +18,7 @@ PlayerUtils.Register_onPlayerAdded(function(player)
 		if x.inst ~= nil then
 			local vv = Instance.new(x.inst)
 			vv.Name = name
-			if x.inst ~= "Folder" then
+			if x.inst ~= "Folder" and x.inst ~= "ObjectValue" then
 				vv.Value = data:Get(name)
 			end
 			vv.Parent = fld_stats

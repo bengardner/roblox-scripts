@@ -26,8 +26,10 @@ for name, item in pairs(ReplicatedPlayerData.items) do
 	else
 		if item.inst ~= nil and item.inst == 'StringValue' then
 			ii.default = ''
-		else
+		elseif item.inst == 'NumberValue' or item.inst == 'IntValue' then
 			ii.default = 0
+		else
+			ii.default = nil
 		end
 	end
 	ii.min = item.minval
