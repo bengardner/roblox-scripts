@@ -130,7 +130,7 @@ end
 --------------------------------------------------------------------------------
 
 function PlayerData:pd_get(name)
-	return self.pd[name] or field_default(name) or 0
+	return self.pd[name] or field_default(name)
 end
 
 function PlayerData:pd_set(name, value)

@@ -5,7 +5,48 @@ local pdm = {}
 
 -- this is called from the .Get(player) function
 function pdm.init(data)
+	data.drones = {}
+	data.drone_idx = 1
+
+	local tt = workspace:WaitForChild("TestDrone")
+	warn("Drone", tt)
+	-- FIXME: this is a hack for testing, drones should be constructed from the datastore
+	table.insert(data.drones, tt)
+	warn("Set drone to", data.drones[1])
+	data:Set("drone", data.drones[1])
+
+	-- probably not going to use "pet", but rather the drones are like pets
 	data.pets = PlayerPets.new(data, data:Get("pets"))
+end
+
+--------------------------------------------------------------------------------
+--- Drone functions
+
+function pdm:drone_cur()
+	return self:Get("drone")
+end
+
+function pdm:drone_select(idx)
+	local drone = self.drones[self.drone_idx]
+
+	if drone ~= nil then
+		drone.PrimaryPart:SetNetworkOwner(nil)
+	end
+	-- REVISIT: test the next line, not sure if it will work for prev wrapping
+	self.drone_idx = 1 + ((idx - 1) % #self.drones)
+	drone = self.drones[self.drone_idx]
+	self:Set("drone", drone)
+	if drone ~= nil then
+		drone.PrimaryPart:SetNetworkOwner(self.player)
+	end
+end
+
+function pdm:drone_next()
+	self:drone_select(self.drone_idx + 1)
+end
+
+function pdm:drone_prev()
+	self:drone_select(self.drone_idx - 1)
 end
 
 --------------------------------------------------------------------------------

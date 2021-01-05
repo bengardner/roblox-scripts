@@ -34,7 +34,7 @@ function ClientPlayerData:_check(no_wait)
 		if no_wait == true then
 			self.loaded = self.player:FindFirstChild("PlayerDataLoaded") ~= nil
 		else
-			self.loaded = self.player:WaitForChild("PlayerDataLoaded") ~= nil
+			self.loaded = self.player:WaitForChild("PlayerDataLoaded", 10) ~= nil
 		end
 	end
 	if self.loaded == true then

@@ -76,6 +76,8 @@ ReplicatedPlayerData.items = {
 
 	-- set to the Attachment that is the camera. the parent must be a BasePart
 	camera       = { inst='ObjectValue', save=false },
+	-- the currently controlled drone
+	drone        = { inst='ObjectValue', save=false },
 
 	-- server-only data (example)
 	active_block = { default={} }, -- block that the player is currently mining
