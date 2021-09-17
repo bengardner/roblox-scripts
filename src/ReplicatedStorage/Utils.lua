@@ -36,6 +36,10 @@ function module.AddStringValue(parent, name, value)
 	return module.AddValue(parent, name, value, "StringValue")
 end
 
+function module.AddBoolValue(parent, name, value)
+	return module.AddValue(parent, name, value, "BoolValue")
+end
+
 -- recursively add up the mass of the model using part:GetMass()
 function module.GetMassOfModel(model)
 	local mass = 0

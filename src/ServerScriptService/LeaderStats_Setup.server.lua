@@ -50,8 +50,5 @@ PlayerUtils.Register_onPlayerAdded(function(player)
 	end
 
 	-- note that we have loaded everything and the splash screen can go away
-	local done = Instance.new("BoolValue")
-	done.Value = true
-	done.Name = "PlayerDataLoaded"
-	done.Parent = player
+	Utils.AddBoolValue(player, "PlayerDataLoaded", true)
 end)
