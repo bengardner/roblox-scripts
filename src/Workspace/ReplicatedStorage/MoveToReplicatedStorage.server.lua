@@ -1,6 +1,6 @@
--- moves all folders to ServerStorage.
+-- moves all folders to ReplicatedStorage.
 -- This is so we can edit things in the workspace.
-local new_parent = game.ServerStorage
+local new_parent = game.ReplicatedStorage
 
 for _, inst in pairs(script.Parent:GetChildren()) do
 	if inst:IsA("Folder") then
