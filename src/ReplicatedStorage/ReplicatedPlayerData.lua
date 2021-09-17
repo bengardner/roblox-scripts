@@ -33,13 +33,14 @@ ReplicatedPlayerData.DT_SAVE_CLIENT = ReplicatedPlayerData.DT_CLIENT + Replicate
 --  * "fatigue" is NOT saved, but is replicated, so the flags are DT_CLIENT.
 
 --[[
-This is a *list* of data items that should be replicated from the the server and are stored under player.stats or player.leaderstats.
-It must be a list to preserve the order for leaderstats. (at least, that's how I think it works!)
+This is a map of data items that should be replicated from the the server and are stored under player.stats or player.leaderstats.
+The key name is the item name.
 
 Fields:
 	@inst is the instance type passed to Instance.new(). If omitted, the value is not replicated to the client.
 	   NOTE: "Folder" is used for complex objects
 	@save indicates that the data should be save to the datastore, default is true (turn off with "save=false")
+	@children will be used to replicate complicated structures. (not implemented)
 
 The other fields are for datastore use:
 	@default is the default value if not 0 or ''.
@@ -81,15 +82,17 @@ ReplicatedPlayerData.items = {
 	active_block = { default={} }, -- block that the player is currently mining
 }
 
+-- format a number as an integer, dropping any fractional part
 local function format_number(val)
 	return string.format('%u', math.floor(val))
 end
 
--- this is a *list* of leaderstats items.
+-- this is a *list* of leaderstats items. It must be a list to preserve the order.
 -- @name is the name for the leaderstats field
 -- @inst is the Value instance type
 -- @dsvar is the variable to attach to
--- @func is used to format the field. If nil, the value is passed through.
+-- @func is used to format the field. If nil, the value is passed through. For example,
+--    you might want the "3.34 Si" style format for large numbers.
 ReplicatedPlayerData.leaderstats = {
 	{ name = 'Coins',    inst = 'StringValue', dsvar = 'coins',    func = format_number },
 	{ name = 'Gems',     inst = 'StringValue', dsvar = 'gems',     func = format_number },

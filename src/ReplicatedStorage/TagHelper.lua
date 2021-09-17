@@ -21,13 +21,15 @@ function module.AddHandler(name, onAdded, onRemoved)
 	local info = { name=name, onAdded=onAdded, onRemoved=onRemoved }
 	module.tags[name] = info
 
-	-- handle existing tags and connect the tag events
-	for _, inst in pairs(CollectionService:GetTagged(name)) do
-		onAdded(inst)
-	end
+	-- Handle existing tags and connect the tag events.
+	-- Attach the callback before iterating in case onAdded() tags another part.
 	CollectionService:GetInstanceAddedSignal(name):Connect(function(inst)
 		onAdded(inst)
 	end)
+	for _, inst in pairs(CollectionService:GetTagged(name)) do
+		onAdded(inst)
+	end
+
 	if onRemoved ~= nil then
 		CollectionService:GetInstanceRemovedSignal(name):Connect(function(inst)
 			onRemoved(inst)
