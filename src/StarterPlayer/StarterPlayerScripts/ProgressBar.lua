@@ -11,8 +11,8 @@ module.__index = module
 --[[
 Configures a new progress bar.
 @root is the root UI element for the progress bar.
-	It must have a decendant named "progress_percent".
-	It may have a decendant named "progress_text".
+	It must have a descendant named "progress_percent".
+	It may have a descendant named "progress_text".
 @info is a table that may contain:
 	- "ds_cur" - LocalPlayerData datastore name for the "current" value.
 	- "ds_max" - LocalPlayerData datastore name for the "maximum" value.
