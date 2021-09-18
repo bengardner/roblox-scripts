@@ -2,6 +2,8 @@
 This defines the data that is continuously replicated from the server to the
 client under the player. Interface to player data from the server.
 
+NOTE: this must be customized for each game! This is an example.
+
 This information is used to:
 	- setup the player.stat and player.leaderstat folders
 	- hook the dataitems to the Values
@@ -19,33 +21,28 @@ Design details:
 ]]
 local ReplicatedPlayerData = {}
 
--- define the data type flags the first 3 are
+-- define the data type flags
 ReplicatedPlayerData.DT_SERVER = 0 -- server-private data (not replicated)
 ReplicatedPlayerData.DT_CLIENT = 1 -- replicated to the client under player.stats
 ReplicatedPlayerData.DT_SAVE   = 4 -- saved to the datastore
 ReplicatedPlayerData.DT_SAVE_SERVER = ReplicatedPlayerData.DT_SERVER + ReplicatedPlayerData.DT_SAVE
 ReplicatedPlayerData.DT_SAVE_CLIENT = ReplicatedPlayerData.DT_CLIENT + ReplicatedPlayerData.DT_SAVE
--- Examples:
---  * "Gems" is saved and replicated, and a leaderstat item, so the flags are DT_SAVE_CLIENT
---  * "Coins" is StringValue, derived from "coins" (on the server) and not saved,
---    but is a leaderstat item, dtype = DT_LEADER. This is to use custom formatting.
---  * "coins" is saved and replicated, dtype = DT_SAVE_CLIENT
---  * "fatigue" is NOT saved, but is replicated, so the flags are DT_CLIENT.
 
 --[[
 This is a map of data items that should be replicated from the the server and are stored under player.stats or player.leaderstats.
 The key name is the item name.
 
 Fields:
-	@inst is the instance type passed to Instance.new(). If omitted, the value is not replicated to the client.
-	   NOTE: "Folder" is used for complex objects
+	@inst is the instance type passed to Instance.new(). Setting this causes it to be replicated to the client.
+		One of: BoolValue, NumberValue, StringValue, IntValue, ObjectValue, or Folder
+		NOTE: "Folder" is used for complex objects
 	@save indicates that the data should be save to the datastore, default is true (turn off with "save=false")
 	@children will be used to replicate complicated structures. (not implemented)
 
 The other fields are for datastore use:
 	@default is the default value if not 0 or ''.
-	@minval is the minimum value for numbers (datastore use)
-	@maxval is the maximum value for numbers (datastore use)
+	@minval is the minimum value for IntValue/NumberValue -- used for validation in the datastore
+	@maxval is the maximum value for IntValue/NumberValue -- used for validation in the datastore
 ]]
 ReplicatedPlayerData.items = {
 	-- stats items

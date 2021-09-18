@@ -5,7 +5,7 @@ local module = {}
 
 -- Get or create a child of a particular type.
 -- This is mainly for folders.
-function module.GetOrCreate(parent, name, typename)
+function module.GetOrCreate(parent: Instance, name: string, typename: string|nil)
 	local xx = parent:FindFirstChild(name)
 	if xx == nil then
 		xx = Instance.new(typename or "Folder")

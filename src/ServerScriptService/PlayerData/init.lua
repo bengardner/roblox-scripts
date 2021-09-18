@@ -231,7 +231,7 @@ local module = {}
 module.cache = {}
 
 -- Get or create a new DataStore2 wrapper for the player
-function module:get(player)
+function module:get(player: Player)
 	--print("PlayerData:Get", player)
 	local data = module.cache[player]
 	if data == nil then

@@ -11,7 +11,7 @@ local function doHeartbeat(step)
 		if xx.cur == -1 then
 			xx.cur = xx.tgt
 		elseif xx.cur < xx.tgt then
-			xx.cur = math.min(xx.tgt, xx.cur + step)
+			xx.cur = math.min(xx.tgt, xx.cur + step) -- moves to tgt in one second
 		elseif xx.cur > xx.tgt then
 			xx.cur = math.max(xx.tgt, xx.cur - step)
 		end
